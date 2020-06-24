@@ -1,0 +1,15 @@
+{
+  "name": "install-updatable-pwa",
+  "version": "0.1.0",
+  "author": "Andreas Goodstein",
+  "description": "Tool for installing a PWA with a cache-updatable service worker",
+  "license": "MIT",
+  "keywords": [
+    "pwa",
+    "installer",
+    "service worker"
+  ],
+  "bin": {
+    "install-updatable-pwa": "./bin/cli.js"
+  }
+}
