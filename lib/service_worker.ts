@@ -1,4 +1,4 @@
-// enable service worker type checking
+// enable service worker type checking. adding 'Worker' to lib in tsconfig might be required
 export default null;
 declare const self: ServiceWorkerGlobalScope;
 
@@ -6,11 +6,11 @@ const CACHE_NAME = "pwaCache-v1";
 const UPDATE_KEY = "pwaHasUpdate";
 const URLS_TO_CACHE = [self.location.origin];
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", (event: InstallEvent) => {
   event.waitUntil(asyncPopulateCacheOnInstall);
 });
 
-self.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", (event: FetchEvent) => {
   if (event.request.mode === "navigate") {
     event.respondWith(asyncReturnThenUpdateCacheResource(event));
   }
@@ -55,7 +55,10 @@ async function asyncUpdateCacheWithLatestResponse(
   const response = await responsePromise;
   const responseToCompare = response.clone();
 
-  if (await cachedResponseIsCurrent(urlString, responseToCompare)) {
+  if (
+    !responseToCompare.ok ||
+    (await cachedResponseIsCurrent(urlString, responseToCompare))
+  ) {
     return;
   }
 
