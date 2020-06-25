@@ -1,4 +1,5 @@
-// enable service worker type checking. adding 'Worker' to lib in tsconfig might be required
+// enable service worker type checking.
+// adding 'Dom', 'WebWorker' and 'es2015' to lib in tsconfig might be required
 export default null;
 declare const self: ServiceWorkerGlobalScope;
 
@@ -6,7 +7,7 @@ const CACHE_NAME = "pwaCache-v1";
 const UPDATE_KEY = "pwaHasUpdate";
 const URLS_TO_CACHE = [self.location.origin];
 
-self.addEventListener("install", (event: InstallEvent) => {
+self.addEventListener("install", (event: ExtendableEvent) => {
   event.waitUntil(asyncPopulateCacheOnInstall);
 });
 
